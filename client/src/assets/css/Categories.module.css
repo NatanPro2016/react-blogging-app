@@ -1,0 +1,33 @@
+.categories {
+  display: flex;
+  gap: 24px;
+  width: 1440px;
+  margin: 20px auto;
+  overflow-x: hidden;
+}
+.categories p {
+  padding: 10px 30px;
+  border-radius: 45px;
+  background: var(--light);
+  cursor: pointer;
+  color: var(--black);
+  font-size: 16px;
+  height: 15px;
+  display: flex;
+  align-items: center;
+}
+.categories p.active {
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  color: var(--light);
+}
+.categories::-webkit-scrollbar {
+  display: none;
+}
+
+/* ::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+} */

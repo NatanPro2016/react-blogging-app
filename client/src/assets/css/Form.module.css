@@ -1,0 +1,226 @@
+:root {
+  --border: #ebebeb;
+  --text-light: #a3a3a3;
+  --light: #f1eff1;
+  --light-bg: #fffdff;
+  --black: #1a1a1a;
+  --primary: #6201fa;
+  --secondary: #4b01c1;
+  --danger: #f94449;
+  --success: #4bb543;
+}
+.login,
+.register {
+  height: 100vh;
+  max-width: 100vw;
+  display: flex;
+  flex-wrap: wrap;
+
+  align-items: center;
+  justify-content: center;
+  background: var(--light-bg);
+}
+::placeholder {
+  color: var(--text-light);
+  opacity: 1; /* Firefox */
+}
+.wrapper {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.nav ul {
+  display: flex;
+  margin: 60px;
+  list-style: none;
+  align-items: center;
+}
+.nav .bar {
+  height: 40px;
+  width: 1px;
+  background: var(--border);
+  margin: 0 1rem;
+  border-radius: 1px;
+}
+.link {
+  color: var(--black);
+  text-decoration: none;
+  font-size: 28px;
+}
+.active {
+  position: relative;
+}
+.active::after {
+  content: "";
+  position: absolute;
+  height: 4px;
+  width: 100%;
+
+  border-radius: 2px;
+  bottom: -10px;
+  left: 0;
+  background: linear-gradient(var(--primary), var(--secondary));
+}
+.google {
+  width: 490px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  text-decoration: none;
+  font-size: 28px;
+  color: var(--text-light);
+  border: 2px var(--border) solid;
+  border-radius: 9px;
+  padding: 0 30px;
+  background-color: var(--light);
+  margin: 20px 0;
+}
+.google img {
+  width: 40px;
+}
+.input {
+  width: 490px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-size: 28px;
+  color: var(--black);
+  border: 2px var(--border) solid;
+  border-radius: 9px;
+  padding: 0 30px;
+  background-color: var(--light);
+  margin: 20px 0;
+}
+.input:focus {
+  outline: none;
+}
+
+.input[type="submit"] {
+  width: 550px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-size: 28px;
+  color: #fff;
+  text-align: center;
+  justify-content: center;
+  border: none;
+  border-radius: 9px;
+  padding: 0 30px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  margin: 20px 0;
+}
+.form span {
+  color: red;
+  display: none;
+  text-align: start;
+  justify-self: unset;
+  align-self: unset;
+}
+.input:invalid[focused="true"],
+.invalid {
+  border: 1px solid red;
+  animation: linear 1s animation;
+}
+
+@keyframes animation {
+  0% {
+    transform: translateX(-5px);
+  }
+  12.5% {
+    transform: translateX(5px);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  37.5% {
+    transform: translateX(5px);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+  62.5% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(5px);
+  }
+}
+.input[name="name"]:invalid[focused="true"] ~ .nameError {
+  display: block;
+}
+.input[name="userName"]:invalid[focused="true"] ~ .userNameError {
+  display: block;
+}
+.input[name="userName"]:invalid[focused="true"] ~ .success,
+.input[name="userName"]:invalid[focused="true"] ~ .success {
+  display: none;
+}
+.input[name="password"]:invalid[focused="true"] ~ .passwordError {
+  display: block;
+}
+.input[name="confirmPassword"]:invalid[focused="true"] ~ .confirmPasswordError {
+  display: block;
+}
+.line {
+  height: 4px;
+  width: 130%;
+  text-align: center;
+  background: var(--border);
+  border-radius: 2px;
+  margin-top: 20px;
+}
+.p {
+  margin-top: -17px;
+  background: var(--light-bg);
+  text-align: center;
+  padding: 0 10px;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+}
+@media (max-width: 600px) {
+  .input,
+  .google {
+    width: 80%;
+    font-size: 18px;
+    height: 40px;
+  }
+  .input[type="submit"] {
+    width: 80%;
+    height: 40px;
+    font-size: 18px;
+  }
+  .link {
+    font-size: 18px;
+  }
+  .line {
+    width: 90%;
+  }
+  .form {
+    margin-top: 20px;
+    padding: 20px;
+    width: 90vw;
+  }
+  .wrapper {
+    width: 89vw;
+  }
+}
+.success {
+  color: var(--success);
+}
+.error {
+  color: var(--danger);
+}

@@ -1,0 +1,24 @@
+.userPosts {
+  margin-top: 20px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 15px;
+  overflow-y: scroll;
+}
+.link {
+  text-decoration: none;
+}
+.title {
+  text-decoration: none;
+  color: var(--black);
+}
+.link img {
+  height: 100px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
+.userPosts::-webkit-scrollbar {
+  display: none;
+}

@@ -1,0 +1,13 @@
+.posts {
+  width: 1440px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto;
+  place-items: center;
+  gap: 20px;
+  margin-top: 40px;
+}
+.create {
+  position: fixed;
+  right: 150px;
+}
