@@ -1,9 +1,6 @@
 .categories {
   display: flex;
-  gap: 24px;
-  width: 1440px;
-  margin: 20px auto;
-  overflow-x: hidden;
+  gap: 20px;
 }
 .categories p {
   padding: 10px 30px;

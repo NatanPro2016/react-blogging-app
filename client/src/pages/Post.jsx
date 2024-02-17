@@ -1,15 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import style from "../assets/css/Post.module.css";
 import Navgation from "../components/Navgation";
-import user from "/img/user.svg";
-
+import user_icon from "/img/user.svg";
+import bookmark from "/icons/bookmark.png";
+import bookmark_solid from "/icons/bookmark-solid.png";
+import { LogedIn } from "../context/IsLogedIn";
 const Post = () => {
   const { id } = useParams();
   const [post, setPost] = useState({});
   const [noPost, setNoPost] = useState(false);
   const [error, setError] = useState(false);
+  const { user } = useContext(LogedIn);
+  const inputRef = useRef();
+  const [isSaved, setIsSeved] = useState(false);
+
   useEffect(() => {
     axios({
       url: `/api/posts/id/${id}`,
@@ -17,6 +23,7 @@ const Post = () => {
     })
       .then((data) => {
         setPost(data.data);
+        console.log(data.data);
       })
       .catch((e) => {
         if (e.response.status === 404) {
@@ -25,7 +32,23 @@ const Post = () => {
         setError(true);
         console.log(e);
       });
+    user.saved.map((saved) => {
+      if (saved == id) {
+        true;
+      }
+    });
   }, [id]);
+  const handleSave = () => {
+    axios
+      .post("/api/posts/save", { id: inputRef.current.value })
+      .then((data) => {
+        console.log(data.data);
+        setIsSeved(!isSaved);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   if (noPost) {
     return <> no post withat id </>;
@@ -91,7 +114,20 @@ const Post = () => {
           )}
           <div to={`/posts/post/${post._id}`} className={style.link}>
             <img src={post.img} alt="post-imgae" className={style.post_img} />
-            <div className={style.category}>{post.category}</div>
+            <div className={style.flex}>
+              <div className={style.category}>{post.category}</div>
+              <input
+                type="text"
+                value={post._id}
+                ref={inputRef}
+                style={{ display: "none" }}
+              />
+              <img
+                src={isSaved ? bookmark_solid : bookmark}
+                alt=""
+                onClick={handleSave}
+              />
+            </div>
             <p className={style.bold}> {post.title}</p>
             <p>{post.des}</p>
           </div>

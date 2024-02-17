@@ -1,0 +1,30 @@
+.sidenav {
+  width: 300px;
+  padding-left: 40px;
+}
+.logo {
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+.sidenav ul {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  gap: 30px;
+}
+.sidenav ul li {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.sidenav ul li img {
+  width: 27px;
+  height: 27px;
+  object-fit: contain;
+}
+.sidenav ul li a {
+  color: var(--black);
+  text-decoration: none;
+}

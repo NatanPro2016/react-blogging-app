@@ -1,10 +1,6 @@
 .createPost {
-  width: 1440px;
-  margin: 0 auto;
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
-
+  justify-content: space-between;
   position: relative;
 }
 .goback {
@@ -49,8 +45,7 @@
   background: linear-gradient(90deg, var(--primary), var(--secondary));
   margin: 20px 0;
 }
-.form {
-}
+
 .form span {
   color: red;
   display: none;

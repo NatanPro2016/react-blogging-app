@@ -1,7 +1,8 @@
 import React from "react";
+import PortectedRoute from "../components/PortectedRoute";
 
 const ErrorPage = () => {
-  return <div>ErrorPage</div>;
+  return <PortectedRoute>ErrorPage</PortectedRoute>;
 };
 
 export default ErrorPage;

@@ -1,16 +1,16 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-import usePostSearch from "../hooks/usePostSearch";
 import { Link } from "react-router-dom";
 import Post from "./Post";
 import style from "../assets/css/Posts.module.css";
 import Categories from "./Categories";
 import Search from "./Search";
+import useSavedPost from "../hooks/useSavedPost";
 
-const Posts = () => {
+const SavedPost = () => {
   const [query, setQuery] = useState("");
   const [pageNumber, setPageNmber] = useState(0);
-  const { loading, error, posts, hasMore } = usePostSearch(query, pageNumber);
+  const { loading, error, posts, hasMore } = useSavedPost(query, pageNumber);
 
   const observer = useRef();
   const lastPost = useCallback(
@@ -43,8 +43,9 @@ const Posts = () => {
       })}
       {loading && "loading"}
       <div>{error && "Error"}</div>
+      <Link to={"/createPost"} className={style.create}></Link>
     </div>
   );
 };
 
-export default Posts;
+export default SavedPost;

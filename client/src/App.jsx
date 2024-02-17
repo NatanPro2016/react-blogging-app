@@ -12,6 +12,7 @@ import Post from "./pages/Post.jsx";
 import CreatePost from "./pages/CreatePost.jsx";
 import Me from "./pages/Me.jsx";
 import PortectedRoute from "./components/PortectedRoute.jsx";
+import Saved from "./pages/Saved.jsx";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,16 @@ const router = createBrowserRouter([
     ),
     errorElement: <ErrorPage />,
   },
+  {
+    path: "/saved",
+    element: (
+      <PortectedRoute>
+        <Saved />
+      </PortectedRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+
   {
     path: "/register",
     element: <Register />,

@@ -4,7 +4,7 @@
 }
 
 .post {
-  width: 645px;
+  width: 385px;
   height: 528px;
   border-radius: 20px;
   background: var(--light);
@@ -46,7 +46,7 @@
 }
 
 .post_img {
-  width: 546px;
+  width: 386px;
   height: 335px;
   border-radius: 20px;
   object-fit: cover;
@@ -84,4 +84,10 @@
   gap: 10px;
   text-decoration: none;
   color: var(--black);
+}
+.flex {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
 }

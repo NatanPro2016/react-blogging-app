@@ -5,7 +5,7 @@ export const LogedIn = createContext(null);
 
 const IsLogedIn = ({ children }) => {
   const [isLogedIn, setIsLogedIn] = useState(null);
-  const [user, setUser] = useState({ user: "user" });
+  const [user, setUser] = useState({});
   useEffect(() => {
     axios
       .get("/api/user")

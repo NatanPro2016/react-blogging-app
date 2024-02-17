@@ -1,5 +1,5 @@
 const express = require("express");
-const { Posts } = require("../database/mongoose");
+const { Posts, Users } = require("../database/mongoose");
 const Joi = require("joi");
 
 const router = express.Router();
@@ -69,25 +69,25 @@ router.get("/", async (req, res) => {
   let q = ".*" + category + ".*";
   const post = category
     ? await Posts.find({ category: { $regex: q, $options: "i" } })
-        .populate("user")
+        .populate("user", "-password -saved")
         .skip(page * limit)
         .limit(limit)
         .sort({ date: -1 })
-        .select("-password")
     : await Posts.find()
-        .populate("user")
+        .populate("user", "-password -saved")
         .skip(page * limit)
         .limit(limit)
-        .sort({ date: -1 })
-        .select("-password");
+        .sort({ date: -1 });
+
   res.json(post);
 });
 router.get("/id/:post_id", async (req, res) => {
   const _id = req.params.post_id;
   if (_id) {
-    const post = await Posts.findOne({ _id })
-      .populate("user")
-      .select("-password");
+    const post = await Posts.findOne({ _id }).populate(
+      "user",
+      "-password -saved"
+    );
     if (post) {
       res.json(post);
     } else {
@@ -120,5 +120,44 @@ router.get("/user/:user_id", async (req, res) => {
       res.status(400).send("insert Id on params");
     }
   }
+});
+
+router.get("/recnet", async (req, res) => {});
+router.post("/save", async (req, res) => {
+  const id = req.body.id;
+  const user = req.session.user._id;
+  const isSaved = await Users.find({ _id: user, saved: { $in: id } });
+  if (isSaved == "") {
+    await Users.updateOne({ _id: user }, { $push: { saved: id } });
+    res.send("saved");
+  } else {
+    await Users.updateOne({ _id: user }, { $pull: { saved: id } });
+    res.json("unsaved");
+  }
+});
+
+router.get("/saved", async (req, res) => {
+  const title = req.query.title || null;
+  let q = ".*" + title + ".*";
+  const page = req.query.page || 0;
+  const limit = 2;
+  const user = await Users.find({ _id: req.session.user._id });
+
+  const post = title
+    ? await Posts.find({
+        _id: { $in: user[0].saved },
+        title: { $regex: q, $options: "i" },
+      })
+        .populate("user", "-password -saved")
+        .skip(page * limit)
+        .limit(limit)
+        .sort({ date: -1 })
+    : await Posts.find({ _id: { $in: user[0].saved } })
+        .populate("user", "-password -saved")
+        .skip(page * limit)
+        .limit(limit)
+        .sort({ date: -1 });
+
+  res.json(post);
 });
 module.exports = router;

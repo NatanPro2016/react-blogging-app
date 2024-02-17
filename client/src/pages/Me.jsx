@@ -22,6 +22,7 @@ const Me = () => {
         .then((res) => {
           console.log("Suceess logout");
           setIsLogedIn(false);
+          window.location = "/login";
         })
         .catch((e) => console.log(e));
     }

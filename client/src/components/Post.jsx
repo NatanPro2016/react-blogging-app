@@ -1,9 +1,41 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import style from "../assets/css/Post.module.css";
-import user from "/img/user.svg";
+import user_icon from "/img/user.svg";
+import bookmark from "/icons/bookmark.png";
+import bookmark_solid from "/icons/bookmark-solid.png";
+import { LogedIn } from "../context/IsLogedIn";
+import axios from "axios";
 
 const Post = ({ post, ref_ }) => {
+  const [isSaved, setIsSeved] = useState(false);
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    axios.get("/api/user").then((res) => {
+      setUser(res.data);
+    });
+  }, []);
+  useEffect(() => {
+    if (user) {
+      user.saved.map((saved) => {
+        if (saved == post._id) {
+          setIsSeved(true);
+        }
+      });
+    }
+  }, [user]);
+  const handleSave = () => {
+    axios
+      .post("/api/posts/save", { id: post._id })
+      .then((data) => {
+        console.log(data.data);
+        setIsSeved(!isSaved);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
   return (
     <div ref={ref_} className={style.post}>
       <div className={style.user}>
@@ -15,7 +47,7 @@ const Post = ({ post, ref_ }) => {
               alt="user_profile"
             />
           ) : (
-            <img className={style.userImg} src={user} alt="user-img" />
+            <img className={style.userImg} src={user_icon} alt="user-img" />
           )}
         </div>
         <div>
@@ -37,14 +69,23 @@ const Post = ({ post, ref_ }) => {
           </svg>
         </Link>
       </div>
-      <Link to={`/posts/post/${post._id}`} className={style.link}>
-        <img src={post.img} alt="post-imgae" className={style.post_img} />
-        <div className={style.category}>{post.category}</div>
+      <div className={style.link}>
+        <Link to={`/posts/post/${post._id}`}>
+          <img src={post.img} alt="post-imgae" className={style.post_img} />
+        </Link>
+        <div className={style.flex}>
+          <div className={style.category}>{post.category}</div>
+          <img
+            src={isSaved ? bookmark_solid : bookmark}
+            alt=""
+            onClick={handleSave}
+          />
+        </div>
         <p className={style.bold}> {post.title}</p>
         <p>
           {post.des.substring(0, 40)} {post.des.length >= 39 ? "..." : ""}
         </p>
-      </Link>
+      </div>
     </div>
   );
 };

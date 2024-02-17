@@ -24,6 +24,13 @@
   padding: 0;
   font-family: kanit-light;
 }
+.flex {
+  display: flex;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
 .notification {
   position: absolute;
   bottom: 40px;
@@ -62,7 +69,12 @@
   height: 50px;
   width: 50px;
 }
-
+section {
+  width: 100svw;
+  height: 100svh;
+  display: flex;
+  justify-content: space-between;
+}
 @keyframes rotation {
   0% {
     transform: rotate(0deg);

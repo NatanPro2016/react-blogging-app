@@ -1,28 +1,17 @@
-import React, { useContext, useState } from "react";
-import Loading from "../components/Loading";
+import React from "react";
+import style from "../assets/css/Dashboard.module.css";
 
-import { LogedIn } from "../context/IsLogedIn";
-import Navgation from "../components/Navgation";
-import { Categories } from "../components/Categories";
 import Posts from "../components/Posts";
+import SideNav from "../components/SideNav";
+import RecentUser from "../components/RecentUser";
 const Dashboard = () => {
-  const { isLogedIn, setIsLogedIn } = useContext(LogedIn);
-  const [query, setQuery] = useState("");
-
-  if (isLogedIn === false) {
-    window.location = "/login";
-  }
-  if (isLogedIn === null) {
-    return <Loading />;
-  } else if (isLogedIn === true) {
-    return (
-      <section>
-        <Navgation setQuery={setQuery} query={query} />
-        <Categories />
-        <Posts query={query} />
-      </section>
-    );
-  }
+  return (
+    <section className={style.dashboard}>
+      <SideNav search={true} saved={true} />
+      <Posts />
+      <RecentUser />
+    </section>
+  );
 };
 
 export default Dashboard;

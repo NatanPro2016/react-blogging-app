@@ -18,6 +18,7 @@ const Users = mongoose.model(
     name: String,
     profile: String,
     password: String,
+    saved: [{ type: ObjectId, ref: "Posts" }],
     date: { type: Date, default: Date.now },
   })
 );

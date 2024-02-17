@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-
 import style from "../assets/css/Navgation.module.css";
 import logo from "/img/The Social Vibe.png";
 import userIcon from "/img/user.svg";
