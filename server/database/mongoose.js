@@ -1,8 +1,11 @@
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema.Types;
+require("dotenv").config();
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/the_socal_vipe")
+  .connect(
+    "mongodb+srv://thesocialvibe:3-LCCdXGuGC-Nv.@cluster0.phrbxrl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+  )
   .then(() => {
     console.log("connected to mongo db ");
   })
@@ -20,7 +23,7 @@ const Users = mongoose.model(
     password: String,
     saved: [{ type: ObjectId, ref: "Posts" }],
     date: { type: Date, default: Date.now },
-    darkmode: Boolean
+    darkmode: Boolean,
   })
 );
 
