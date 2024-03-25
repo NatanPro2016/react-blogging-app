@@ -15,7 +15,7 @@ const Search = ({ query, setQuery }) => {
       <form method="POST" onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Type Title"
+          placeholder="Type Category"
           value={query}
           onChange={handleChange}
         />

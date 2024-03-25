@@ -198,9 +198,11 @@ const CreatePost = () => {
             onChange={handleChangeImg}
             className={style.file}
           />
-          {isDragging
-            ? "Drop Images here"
-            : " Drag and drop Image here or browse "}
+          {isDragging ? (
+            <p>Drop Images here</p>
+          ) : (
+            <p> Drag and drop Image here or browse</p>
+          )}
 
           {post.img && <img src={post.img} height={100} alt="" />}
         </div>

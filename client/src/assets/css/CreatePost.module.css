@@ -3,39 +3,34 @@
   justify-content: space-between;
   position: relative;
 }
-.goback {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  color: var(--black);
-  position: absolute;
-  left: 0;
-}
+
 .input {
-  width: 490px;
-  height: 60px;
+  width: 430px;
+  min-height: 50px;
   display: flex;
   align-items: center;
   gap: 10px;
   text-decoration: none;
-  font-size: 28px;
-  color: var(--black);
+  font-size: 20px;
+  color: var(--forground);
   border: 2px var(--border) solid;
   border-radius: 9px;
   padding: 0 30px;
   background-color: var(--light);
   margin: 20px 0;
 }
+.input:focus {
+  outline: none;
+}
 
 .input[type="submit"] {
-  width: 550px;
-  height: 60px;
+  width: 450px;
+  height: 50px;
   display: flex;
   align-items: center;
   gap: 10px;
   text-decoration: none;
-  font-size: 28px;
+  font-size: 20px;
   color: #fff;
   text-align: center;
   justify-content: center;
@@ -57,7 +52,18 @@
   border: 1px solid red;
   animation: linear 1s animation;
 }
-
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+@media (max-width: 860px) {
+  .form {
+    height: 700px;
+    overflow-x: scroll;
+  }
+}
 @keyframes animation {
   0% {
     transform: translateX(-5px);
@@ -98,26 +104,25 @@
   display: none;
 }
 .card {
-  width: 490px;
-  height: 250px;
+  width: 450px;
+  min-height: 250px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   text-decoration: none;
   font-size: 28px;
-  color: var(--black);
+  color: var(--forground);
   border: 2px var(--border) solid;
   border-radius: 9px;
   padding: 0 30px;
   background-color: var(--light);
   margin: 20px 0;
   flex-direction: column;
-  color: var(--text-light);
 }
 
 .invalid {
-  border: 1px solid red;
+  border: 1px solid var(--danger);
   animation: linear 1s animation;
 }
 .invalid ~ .img_error {
@@ -152,4 +157,35 @@
   padding: 0 30px;
   background-color: var(--light);
   margin: 20px 0;
+}
+.card p,
+.card svg,
+.card svg path {
+  color: var(--dark);
+  fill: var(--dark);
+}
+
+@media (max-width: 860px) {
+  .createPost {
+    align-items: center;
+  }
+  .input {
+    margin: 10px 0;
+    padding: 0 15px;
+    width: 380px;
+  }
+  .input[type="submit"] {
+    width: 400px;
+  }
+  .card {
+    padding: 0 15px;
+    width: 380px;
+  }
+}
+@media (max-width: 460px) {
+  .input,
+  .card,
+  .input[type="submit"] {
+    width: 80svw;
+  }
 }

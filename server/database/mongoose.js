@@ -20,6 +20,7 @@ const Users = mongoose.model(
     password: String,
     saved: [{ type: ObjectId, ref: "Posts" }],
     date: { type: Date, default: Date.now },
+    darkmode: Boolean
   })
 );
 

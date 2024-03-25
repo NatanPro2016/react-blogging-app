@@ -1,4 +1,10 @@
-import React, { Profiler, useContext, useRef, useState } from "react";
+import React, {
+  Profiler,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 
@@ -8,6 +14,13 @@ import Loading from "../components/Loading";
 import FormCss from "../assets/css/Form.module.css";
 
 const Register = () => {
+  useEffect(() => {
+    const dark = window.matchMedia("(prefers-color-scheme : dark)").matches;
+
+    if (dark === false) {
+      document.body.setAttribute("data-theme", "light");
+    }
+  }, []);
   const { isLogedIn, setIsLogedIn } = useContext(LogedIn);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -67,15 +80,17 @@ const Register = () => {
         name: registerInfo.name,
         userName: registerInfo.userName,
         password: registerInfo.password,
+        darkmode: window.matchMedia("(prefers-color-scheme : dark)").matches,
       })
       .then(() => {
-        setIsLogedIn(true);
+        setIsLogedIn(false);
+        window.location = "/";
       })
       .catch((e) => {
         setError(e.response.data);
+        setIsLoading(false);
       });
     console.log(registerInfo);
-    setIsLoading(false);
   };
   const handleChange = (e) => {
     setRegisterInfo({
@@ -127,7 +142,8 @@ const Register = () => {
               onBlur={handleFocuse}
             />
             <span className={FormCss.nameError}>
-              Name shold be 3 - 20 caracter , Name canot be empty
+              Name shold be 3 - 20 caracter , Name canot be empty, spacal
+              caracters not allowed
             </span>
             <input
               type="text"
@@ -143,7 +159,7 @@ const Register = () => {
               ref={userNameRef}
             />
             {available && (
-              <p className={FormCss.success}>That username is available </p>
+              <p className={FormCss.success}>That username is available</p>
             )}
             {available === false && (
               <p className={FormCss.error}>That username is taken</p>
@@ -159,7 +175,7 @@ const Register = () => {
               name="password"
               placeholder=" Your Passowrd"
               onChange={handleChange}
-              pattern="^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*:;])[a-zA-Z0-9!@#$%^&*]{6,20}$"
+              pattern="^{6,}$"
               required
               className={FormCss.input}
               focused={focused.password.toString()}
@@ -185,7 +201,12 @@ const Register = () => {
             <span className={FormCss.confirmPasswordError}>
               Password don't much
             </span>
-            <input type="submit" value="Register" className={FormCss.input} />
+            <input
+              type="submit"
+              value={isLoading ? "Loading" : "Register "}
+              className={FormCss.input}
+              disabled={isLoading}
+            />
           </form>
           <Link className={FormCss.link} to={"/login"}>
             I already have an account Login

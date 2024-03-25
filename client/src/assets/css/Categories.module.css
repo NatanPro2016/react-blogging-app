@@ -2,24 +2,27 @@
   display: flex;
   gap: 20px;
 }
+
 .categories p {
   padding: 10px 30px;
-  border-radius: 45px;
+  border-radius: 5px;
   background: var(--light);
   cursor: pointer;
-  color: var(--black);
+  color: var(--forground);
   font-size: 16px;
   height: 15px;
   display: flex;
   align-items: center;
 }
+
 .categories p.active {
   background: linear-gradient(90deg, var(--primary), var(--secondary));
-  color: var(--light);
+  color: var(--white);
 }
-.categories::-webkit-scrollbar {
+
+/* .categories::-webkit-scrollbar {
   display: none;
-}
+} */
 
 /* ::-webkit-scrollbar-track {
   background: #f1f1f1;

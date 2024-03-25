@@ -20,11 +20,50 @@
   gap: 20px;
 }
 .sidenav ul li img {
-  width: 27px;
-  height: 27px;
+  width: 24px;
+  height: 24px;
   object-fit: contain;
 }
 .sidenav ul li a {
-  color: var(--black);
+  color: var(--forground);
   text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+.sidenav ul li a span {
+  margin-left: 20px;
+}
+@media (max-width: 860px) {
+  .sidenav {
+    width: 100svw;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 20px;
+    padding-left: 0;
+  }
+  .sidenav ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10px;
+    width: 450px;
+    padding: 20px;
+  }
+  .sidenav ul li a span {
+    display: none;
+  }
+  .logo {
+    display: none;
+  }
+}
+@media (max-width: 460px) {
+  .sidenav {
+    padding: 0;
+  }
+
+  .sidenav ul li svg {
+    width: 15px;
+  }
 }

@@ -42,7 +42,7 @@ const usePostSearch = (query, pageNumber) => {
     return () => cancel();
   }, [query, pageNumber]);
 
-  return { loading, error, posts, hasMore };
+  return { error, hasMore, loading, posts };
 };
 
 export default usePostSearch;

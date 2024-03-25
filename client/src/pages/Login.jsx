@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useFormAction } from "react-router-dom";
 
@@ -8,6 +8,13 @@ import google from "/img/google.png";
 import FormCss from "../assets/css/Form.module.css";
 
 const Login = () => {
+  useEffect(() => {
+    const dark = window.matchMedia("(prefers-color-scheme : dark)").matches;
+
+    if (dark === false) {
+      document.body.setAttribute("data-theme", "light");
+    }
+  }, []);
   const { isLogedIn, setIsLogedIn } = useContext(LogedIn);
   const [loginInfo, setLoginInfo] = useState({
     userName: "",
@@ -15,19 +22,22 @@ const Login = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
+
     axios
       .post("/api/auth/login", loginInfo)
       .then(() => {
         setIsLogedIn(true);
+        setIsLoading(false);
       })
       .catch((e) => {
         setError(e.response.data);
         console.log(error);
+        setIsLoading(false);
       });
-    setIsLoading(false);
   };
   const handleChange = (e) => {
     setLoginInfo({
@@ -85,7 +95,12 @@ const Login = () => {
               onChange={handleChange}
             />
 
-            <input type="submit" value="Login" className={FormCss.input} />
+            <input
+              type="submit"
+              value={isLoading ? "loading ...." : "login"}
+              className={FormCss.input}
+              disabled={isLoading}
+            />
           </form>
           <Link className={FormCss.link} to={"/register"}>
             I don’ t have an account ? Register

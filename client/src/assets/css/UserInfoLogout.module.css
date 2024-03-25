@@ -1,0 +1,39 @@
+.page {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 100px;
+  gap: 10px;
+}
+.page img {
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  position: relative;
+}
+.page img::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 20px;
+  background: var(--primary);
+  height: 10px;
+  width: 10px;
+}
+.button {
+  width: 200px;
+  border: none;
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  color: var(--white);
+  border-radius: 5px;
+  padding: 7px;
+  margin-top: 15px;
+}
+@media (max-width: 460px) {
+  .button {
+    width: 80svw;
+  }
+}

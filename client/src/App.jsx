@@ -1,4 +1,4 @@
-import IsLogedIn from "./context/IsLogedIn.jsx";
+import IsLogedIn, { LogedIn } from "./context/IsLogedIn.jsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Dashboard from "./pages/Dashboard.jsx";
@@ -12,7 +12,12 @@ import Post from "./pages/Post.jsx";
 import CreatePost from "./pages/CreatePost.jsx";
 import Me from "./pages/Me.jsx";
 import PortectedRoute from "./components/PortectedRoute.jsx";
+import Search from "./pages/Search.jsx";
 import Saved from "./pages/Saved.jsx";
+import LogOut from "./pages/LogOut.jsx";
+import ChangeUserName from "./pages/ChangeUserName.jsx";
+import ChangePassword from "./pages/ChangePassword.jsx";
+import { useContext, useEffect } from "react";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +25,15 @@ const router = createBrowserRouter([
     element: (
       <PortectedRoute>
         <Dashboard />
+      </PortectedRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/search",
+    element: (
+      <PortectedRoute>
+        <Search />
       </PortectedRoute>
     ),
     errorElement: <ErrorPage />,
@@ -49,6 +63,33 @@ const router = createBrowserRouter([
     element: (
       <PortectedRoute>
         <Me />
+      </PortectedRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/changepassword",
+    element: (
+      <PortectedRoute>
+        <ChangePassword />
+      </PortectedRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/ChangeUserName",
+    element: (
+      <PortectedRoute>
+        <ChangeUserName />
+      </PortectedRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/logout",
+    element: (
+      <PortectedRoute>
+        <LogOut />
       </PortectedRoute>
     ),
     errorElement: <ErrorPage />,
@@ -92,11 +133,14 @@ const router = createBrowserRouter([
   },
 ]);
 function App() {
-  return (
-    <IsLogedIn>
-      <RouterProvider router={router} />
-    </IsLogedIn>
-  );
+  const { user } = useContext(LogedIn);
+  useEffect(() => {
+    if (user.darkmode === false) {
+      document.body.setAttribute("data-theme", "light");
+      console.log(user.darkmode);
+    }
+  }, [user]);
+  return <RouterProvider router={router} />;
 }
 
 export default App;

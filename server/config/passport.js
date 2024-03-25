@@ -17,6 +17,7 @@ passport.use(
         const newUser = new Users({
           id: profile.id,
           name: profile.displayName,
+          darkmode: false,
         });
         await newUser.save();
       }

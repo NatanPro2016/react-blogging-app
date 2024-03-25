@@ -1,8 +1,6 @@
 .user_ {
-  width: 1440px;
   display: flex;
-  margin: 0 auto;
-  justify-content: space-between;
+  justify-content: center;
   align-items: start;
   margin-top: 20px;
 }
@@ -19,11 +17,12 @@
   align-items: center;
   flex-direction: column;
   background: var(--light);
-  height: 730px;
+  height: 80svh;
   border-radius: 20px;
   padding: 50px 20px;
 }
 .user {
+  width: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -64,4 +63,15 @@
   border: none;
   background: transparent;
   cursor: pointer;
+  width: 300px;
+  display: flex;
+  justify-content: end;
+}
+@media (max-width: 860px) {
+  .container {
+    height: 70svh;
+    padding: 20px 10px;
+    width: 90svw;
+    margin: auto;
+  }
 }

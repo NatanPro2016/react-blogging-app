@@ -1,0 +1,68 @@
+.toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.label {
+  width: 66px;
+  height: 26px;
+  position: relative;
+  display: block;
+  background: #ebebeb;
+  border-radius: 200px;
+  cursor: pointer;
+}
+.label:after {
+  content: "";
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  background: linear-gradient(180deg, #ffcc89, #d8860b);
+  border-radius: 180px;
+}
+input[type="checkbox"] {
+  width: 0;
+  height: 0;
+  display: none;
+}
+.label:active:after {
+  width: 30px;
+}
+input[type="checkbox"]:checked + .label {
+  background: #242424;
+}
+input[type="checkbox"]:checked + .label::after {
+  position: absolute;
+  right: 3px;
+  left: unset;
+  background: linear-gradient(180deg, #1f1f1f, #070707);
+  border-radius: 180px;
+}
+.label svg {
+  position: absolute;
+  width: 16px;
+  top: 5px;
+  left: 5px;
+  z-index: 100;
+}
+.label svg.moon {
+  right: 3px;
+  left: unset;
+  stroke: var(--black);
+  fill: var(--black);
+}
+input[type="checkbox"]:checked + .label svg.moon path {
+  stroke: var(--white);
+  fill: var(--white);
+}
+.label svg.sun path {
+  stroke: var(--white);
+  fill: var(--white);
+}
+input[type="checkbox"]:checked + .label svg.sun path {
+  stroke: var(--black);
+  fill: var(--black);
+}
