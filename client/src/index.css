@@ -44,6 +44,7 @@
   margin: 0;
   padding: 0;
   font-family: kanit-light;
+  box-sizing: border-box;
 }
 html {
   scroll-behavior: smooth;
@@ -134,3 +135,4 @@ section {
     font-family: kanit-light;
   }
 }
+                                            

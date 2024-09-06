@@ -4,6 +4,8 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 const Users = () => {
+
+  
   const { userName } = useParams();
   const [user, setUser] = useState({});
   const [noUser, setNoUser] = useState(false);

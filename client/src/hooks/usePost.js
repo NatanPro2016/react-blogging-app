@@ -37,7 +37,7 @@ const usePost = (user, pageNumber) => {
     return () => cancel();
   }, [user, pageNumber]);
 
-  return { loading, error, posts, hasMore };
+  return { loading, error, posts, hasMore, setPosts };
 };
 
 export default usePost;

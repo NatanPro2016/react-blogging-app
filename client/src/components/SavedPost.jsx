@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Post from "./Post";
 import style from "../assets/css/Posts.module.css";
-import Categories from "./Categories";
+
 import Search from "./Search";
 import useSavedPost from "../hooks/useSavedPost";
 
@@ -33,7 +33,7 @@ const SavedPost = () => {
   return (
     <div className={style.posts}>
       <Search query={query} setQuery={setQuery} />
-      <Categories />
+
       {posts.map((post, index) => {
         if (posts.length === index + 1) {
           return <Post post={post} key={post._id} ref_={lastPost} />;
@@ -41,7 +41,15 @@ const SavedPost = () => {
           return <Post post={post} key={post._id} />;
         }
       })}
-      {loading && "loading"}
+      {loading && (
+        <div className={style.loading}>
+          <div className={style.fake_user}>
+            <div className={style.user}></div>
+          </div>
+          <div className={style.fake_img}></div>
+          <div className={style.text}></div>
+        </div>
+      )}
       <div>{error && "Error"}</div>
       <Link to={"/createPost"} className={style.create}></Link>
     </div>

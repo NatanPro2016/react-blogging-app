@@ -1,6 +1,14 @@
 .post {
-  height: 200px;
-  width: 360px;
+  height: 180px;
+  width: 280px;
+  border-radius: 10px;
+  margin-top: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.blured {
+  height: 180px;
+  width: 280px;
   border-radius: 10px;
   margin-top: 10px;
   position: relative;
@@ -36,7 +44,7 @@
   align-items: center;
 }
 @media (max-width: 460px) {
-  .post {
+  .post , .blured {
     width: 80svw;
   }
 }

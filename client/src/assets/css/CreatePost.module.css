@@ -3,6 +3,10 @@
   justify-content: space-between;
   position: relative;
 }
+.postimg {
+  object-fit: cover;
+  border-radius: 10px;
+}
 
 .input {
   width: 430px;
@@ -19,12 +23,31 @@
   background-color: var(--light);
   margin: 20px 0;
 }
+.desibledInput {
+  width: 380px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #fff;
+  text-align: center;
+  justify-content: center;
+  border: none;
+  border-radius: 9px;
+  padding: 7px 30px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  margin: 20px 0;
+  opacity: 0.8;
+  cursor: not-allowed;
+}
 .input:focus {
   outline: none;
 }
 
 .input[type="submit"] {
-  width: 450px;
+  width: 430px;
   height: 50px;
   display: flex;
   align-items: center;
@@ -104,7 +127,7 @@
   display: none;
 }
 .card {
-  width: 450px;
+  width: 426px;
   min-height: 250px;
   display: flex;
   align-items: center;
@@ -129,7 +152,7 @@
   display: block;
 }
 .error_message {
-  width: 490px;
+  width: 430px;
   height: 60px;
   display: flex;
   align-items: center;
@@ -144,7 +167,7 @@
   margin: 20px 0;
 }
 .success_message {
-  width: 490px;
+  width: 430px;
   height: 60px;
   display: flex;
   align-items: center;
@@ -166,6 +189,11 @@
 }
 
 @media (max-width: 860px) {
+  .error_message,
+  .success_message {
+    width: 380px;
+    height: fit-content;
+  }
   .createPost {
     align-items: center;
   }
@@ -175,7 +203,7 @@
     width: 380px;
   }
   .input[type="submit"] {
-    width: 400px;
+    width: 380px;
   }
   .card {
     padding: 0 15px;
@@ -185,7 +213,11 @@
 @media (max-width: 460px) {
   .input,
   .card,
+  .error_message,
+  .desibledInput,
+  .success_message,
   .input[type="submit"] {
-    width: 80svw;
+    max-width: 80svw;
+    height: fit-content;
   }
 }

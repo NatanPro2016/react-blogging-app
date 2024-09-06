@@ -33,7 +33,7 @@ const Navgation = ({ query, setQuery }) => {
         </form>
       </div>
       <Link to={"/me"} className={style.user}>
-        {user.name}{" "}
+        {user.name}
         {user.profile ? (
           <img src={user.profile} className={style.user_profile} />
         ) : (

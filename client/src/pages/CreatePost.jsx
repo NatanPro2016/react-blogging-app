@@ -1,21 +1,29 @@
 import React, { useRef, useState } from "react";
+import Resizer from "react-image-file-resizer";
+
 import axios from "axios";
 import style from "../assets/css/CreatePost.module.css";
 
 import { Link } from "react-router-dom";
 import SideNav from "../components/SideNav";
 import RecentUser from "../components/RecentUser";
+import upload from "../lib/upload";
+import Loading from "../components/Loading";
+import { encodeImageToBlurhash } from "../lib/blurHash";
 
 const CreatePost = () => {
   const [response, setResponse] = useState("");
   const [error, setError] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState("");
+  const [bluredHash, setBluredHash] = useState("");
 
   const [post, setPost] = useState({
     title: "",
     des: "",
     category: "",
-    img: "",
+    img: null,
   });
   const [focused, setFocused] = useState({
     title: false,
@@ -24,31 +32,80 @@ const CreatePost = () => {
   });
   const imgRef = useRef(null);
   const dragRef = useRef(null);
+  const resizeFile = (file) => {
+    setLoading(true);
+    Resizer.imageFileResizer(
+      file,
+      900,
+      900,
+      "JPEG",
+      100,
+      0,
+      (uri) => {
+        const imgUrl = URL.createObjectURL(uri);
+        setImage(imgUrl);
+
+        encodeImageToBlurhash(imgUrl)
+          .then((data) => {
+            setBluredHash(data);
+            setLoading(false);
+          })
+          .catch((e) => {
+            console.log(e);
+            setLoading(false);
+          });
+        setPost({ ...post, img: uri });
+      },
+      "file"
+    );
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!post.img) {
       dragRef.current.classList.add(style.invalid);
     } else {
-      axios.post("/api/posts/create", post).then((data) => {
-        console.log(data.data);
-        dragRef.current.classList.remove(style.invalid);
-        setResponse("Successfully Posted ");
-        setPost({
-          title: "",
-          des: "",
-          category: "",
-          img: "",
+      setLoading(true);
+
+      upload(post.img)
+        .then(({ downloadURL, rename }) => {
+          axios
+            .post("/api/posts/create", {
+              ...post,
+              img: downloadURL,
+              rename,
+              bluredHash,
+            })
+            .then((data) => {
+              console.log(data.data);
+              dragRef.current.classList.remove(style.invalid);
+              setResponse("Successfully Posted ");
+              setLoading(false);
+              setPost({
+                title: "",
+                des: "",
+                category: "",
+                img: "",
+              });
+              setImage("");
+              setFocused({
+                title: false,
+                des: false,
+                category: false,
+              });
+            })
+            .catch((e) => {
+              setError(true);
+              console.log(e);
+              setLoading(false);
+            });
+        })
+        .catch((err) => {
+          console.log(e);
+          setError(true);
+          setResponse("something went wrong");
+          setLoading(false);
         });
-      });
-      setFocused({
-        title: false,
-        des: false,
-        category: false,
-      }).catch((e) => {
-        setError(true);
-        console.log(e);
-      });
     }
   };
   const handleDragOver = (e) => {
@@ -60,22 +117,13 @@ const CreatePost = () => {
     e.preventDefault();
     setIsDragging(false);
   };
-  const handleDrop = (e) => {
+  const handleDrop = async (e) => {
     e.preventDefault();
     setIsDragging(false);
 
     if (e.dataTransfer.files[0].type.split("/")[0] === "image") {
-      const reader = new FileReader();
-      reader.readAsDataURL(e.dataTransfer.files[0]);
-      reader.onload = () => {
-        setPost({
-          ...post,
-          img: reader.result,
-        });
-      };
-      reader.onerror = (error) => {
-        console.log(error);
-      };
+      resizeFile(e.dataTransfer.files[0]);
+    } else {
     }
   };
   const handleSelect = () => {
@@ -86,21 +134,10 @@ const CreatePost = () => {
   };
   const handleFocuse = (e) => {
     setFocused({ ...focused, [e.target.name]: true });
-    console.log(focused);
   };
-  const handleChangeImg = (e) => {
+  const handleChangeImg = async (e) => {
     if (e.target.files[0].type.split("/")[0] === "image") {
-      const reader = new FileReader();
-      reader.readAsDataURL(e.target.files[0]);
-      reader.onload = () => {
-        setPost({
-          ...post,
-          img: reader.result,
-        });
-      };
-      reader.onerror = (error) => {
-        console.log(error);
-      };
+      resizeFile(e.target.files[0]);
     }
   };
   return (
@@ -109,12 +146,17 @@ const CreatePost = () => {
 
       <form method="POST" onSubmit={handleSubmit} className={style.form}>
         {response && <div className={style.success_message}>{response}</div>}
-        {error && (
+        {error && !response && (
           <div className={style.error_message}> Some went wrong try agan</div>
+        )}
+        {loading && (
+          <div>
+            <Loading type={"mini"} /> Loading ..
+          </div>
         )}
         <input
           type="text"
-          placeholder="title"
+          placeholder="Title"
           onChange={handleChange}
           name="title"
           value={post.title}
@@ -144,7 +186,7 @@ const CreatePost = () => {
         </span>
         <input
           type="text"
-          placeholder="category"
+          placeholder="Category"
           onChange={handleChange}
           name="category"
           className={style.input}
@@ -204,10 +246,23 @@ const CreatePost = () => {
             <p> Drag and drop Image here or browse</p>
           )}
 
-          {post.img && <img src={post.img} height={100} alt="" />}
+          {image && (
+            <img
+              className={style.postimg}
+              src={image}
+              height={75}
+              width={75}
+              alt=""
+            />
+          )}
         </div>
         <span className={style.img_error}> Please insert image </span>
-        <input type="submit" value="Post" className={style.input} />
+        <input
+          type="submit"
+          value={loading ? "Loading.." : "Post"}
+          className={!loading ? style.input : style.desibledInput}
+          disabled={loading}
+        />
       </form>
       <RecentUser />
     </section>

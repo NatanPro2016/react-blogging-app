@@ -1,5 +1,5 @@
 .sidenav {
-  width: 300px;
+  max-width: 300px;
   padding-left: 40px;
 }
 .logo {
@@ -13,6 +13,12 @@
   flex-direction: column;
   list-style: none;
   gap: 30px;
+}
+.active {
+  background: var(--light);
+  padding: 10px;
+  border-radius: 4px;
+  width: 100%;
 }
 .sidenav ul li {
   display: flex;
@@ -36,7 +42,7 @@
 @media (max-width: 860px) {
   .sidenav {
     width: 100svw;
-
+    max-width: unset;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -62,7 +68,9 @@
   .sidenav {
     padding: 0;
   }
-
+  .sidenav ul {
+    padding: 5px 10px;
+  }
   .sidenav ul li svg {
     width: 15px;
   }

@@ -39,6 +39,42 @@
   border-radius: 0 15px 15px 0;
   opacity: 0;
 }
+.imageLoading {
+  height: 100px;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 15px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  position: relative;
+}
+.imageLoading::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: var(--white);
+  animation: blink infinite 2.5s;
+}
+@keyframes blink {
+  to {
+    opacity: 0;
+  }
+}
+.noImage {
+  height: 100px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+  background: var(--border);
+  display: grid;
+  place-items: center;
+}
+
 @media (max-width: 460px) {
   .link img {
     height: 20vw;

@@ -137,7 +137,6 @@ function App() {
   useEffect(() => {
     if (user.darkmode === false) {
       document.body.setAttribute("data-theme", "light");
-      console.log(user.darkmode);
     }
   }, [user]);
   return <RouterProvider router={router} />;

@@ -1,12 +1,9 @@
-import React, { useContext, useRef, useState } from "react";
-
-import axios from "axios";
+import React, { useContext, useState } from "react";
 
 import { LogedIn } from "../context/IsLogedIn";
 
 import style from "../assets/css/Me.module.css";
 
-import userIcon from "/img/user.svg";
 import UserPosts from "../components/UserPosts";
 import AddProfile from "../components/AddProfile";
 import Notification from "../components/Notification";

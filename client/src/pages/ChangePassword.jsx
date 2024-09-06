@@ -6,7 +6,7 @@ import SideNav from "../components/SideNav";
 import RecentUser from "../components/RecentUser";
 import Notifcation from "../components/Notification";
 import { LogedIn } from "../context/IsLogedIn";
-import userIcon from "/img/user.svg";
+
 import styles from "../assets/css/ChangePassword.module.css";
 
 const ChangePassword = () => {
@@ -40,7 +40,9 @@ const ChangePassword = () => {
                 : "Internal server error"
             );
             Swal.fire({
-              title: "error Internal server error",
+              title:  e.response.status === 400
+              ? e.response.data
+              : "Internal server error",
               text: ".",
               icon: "error",
             });
@@ -77,7 +79,7 @@ const ChangePassword = () => {
         {user.name}
         <input
           className={styles.input}
-          type="text"
+          type="password"
           onChange={handleChange}
           placeholder="New Password"
           value={password}

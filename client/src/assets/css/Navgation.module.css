@@ -11,14 +11,18 @@
   font-size: 20px;
 }
 .search {
+  width: 100%;
   margin: 20px 0;
   height: max-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .search input[type="text"] {
   border: none;
   padding: 10px 40px;
   background: var(--light);
-  height: 40px;
+  height: 60px;
   width: 280px;
   border-radius: 10px;
   color: var(--forground);
@@ -93,7 +97,7 @@
   }
 
   .search input[type="text"] {
-    width: 80svw;
+    width: 90svw;
     padding: 5px 10px;
   }
   .search input[type="submit"] {

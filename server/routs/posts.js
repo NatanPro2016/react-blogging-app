@@ -8,6 +8,9 @@ const postSchema = Joi.object({
   des: Joi.string().min(3).max(255).required(),
   category: Joi.string().min(3).max(15).required(),
   img: Joi.string().required(),
+  img: Joi.string().required(),
+  bluredHash: Joi.string(),
+  rename: Joi.string().required(),
 });
 
 const postEditSchema = Joi.object({
@@ -16,6 +19,8 @@ const postEditSchema = Joi.object({
   des: Joi.string().min(3).max(255),
   category: Joi.string().required(),
   img: Joi.string().required(),
+  bluredHash: Joi.string(),
+  rename: Joi.string().required(),
 });
 const idSchema = Joi.object({
   _id: Joi.string().min(24).max(25),
@@ -26,9 +31,11 @@ router.post("/create", async (req, res) => {
     if (error) {
       res.status(400).send(error.message);
     } else {
-      const { img, title, des, category } = req.body;
+      const { img, rename, title, des, category, bluredHash } = req.body;
       const newPost = new Posts({
+        bluredHash,
         img,
+        rename,
         title,
         des,
         category,

@@ -1,7 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-import users from "/icons/users.png";
-import posts from "/icons/posts.png";
 import styles from "../assets/css/Result.module.css";
 
 import usePostSearchByTitle from "../hooks/usePostSearchByTitle";
@@ -30,7 +28,7 @@ const Result = () => {
   const handleChangeToUser = () => {
     if (onPosts) {
       console.log("to posts");
-      results.current.scrollBy(380, 0);
+      results.current.scrollBy(300, 0);
       setOnPosts(false);
     }
   };

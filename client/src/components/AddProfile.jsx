@@ -1,8 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import upload from "../lib/upload";
+import Resizer from "react-image-file-resizer";
 
 const AddProfile = ({ setNotify }) => {
   const [clicked, setClicked] = useState(false);
+
   const [img, setImg] = useState("");
   const inputRef = useRef();
   const submitRef = useRef();
@@ -16,20 +19,31 @@ const AddProfile = ({ setNotify }) => {
         setNotify("success");
       })
       .catch((e) => {
+        console.log(e);
         setNotify("fell");
       });
   };
   const handleChange = (e) => {
     setNotify("loading");
     if (e.target.files[0].type.split("/")[0] === "image") {
-      const reader = new FileReader();
-      reader.readAsDataURL(e.target.files[0]);
-      reader.onload = () => {
-        setImg(reader.result);
-      };
-      reader.onerror = (error) => {
-        setNotify("fell");
-      };
+      Resizer.imageFileResizer(
+        e.target.files[0],
+        900,
+        900,
+        "JPEG",
+        100,
+        0,
+        (uri) => {
+          upload(uri)
+            .then(({ downloadURL }) => {
+              setImg(downloadURL);
+
+              setNotify("success");
+            })
+            .catch((e) => setNotify("falled"));
+        },
+        "file"
+      );
     }
     setNotify("not an image");
   };

@@ -3,9 +3,7 @@ const { ObjectId } = mongoose.Schema.Types;
 require("dotenv").config();
 
 mongoose
-  .connect(
-    "mongodb+srv://thesocialvibe:3-LCCdXGuGC-Nv.@cluster0.phrbxrl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-  )
+  .connect("mongodb://127.0.0.1:27017/thesocalvibe")
   .then(() => {
     console.log("connected to mongo db ");
   })
@@ -33,6 +31,8 @@ const Posts = mongoose.model(
     title: String,
     des: String,
     img: String,
+    rename: String,
+    bluredHash: String,
     user: { type: ObjectId, ref: "Users" },
     category: String,
     date: { type: Date, default: Date.now },

@@ -54,6 +54,7 @@ input[type="checkbox"]:checked + .label::after {
   stroke: var(--black);
   fill: var(--black);
 }
+
 input[type="checkbox"]:checked + .label svg.moon path {
   stroke: var(--white);
   fill: var(--white);
@@ -62,7 +63,4 @@ input[type="checkbox"]:checked + .label svg.moon path {
   stroke: var(--white);
   fill: var(--white);
 }
-input[type="checkbox"]:checked + .label svg.sun path {
-  stroke: var(--black);
-  fill: var(--black);
-}
+

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import style from "../assets/css/SideNav.module.css";
 import logo from "/img/the-social-vibe.png";
@@ -8,6 +8,7 @@ import logo_light from "/img/the-social-vibe-white.png";
 
 const SideNav = ({ saved, search, password, username, log_out }) => {
   const { user } = useContext(LogedIn);
+  const { pathname } = useLocation();
 
   return (
     <div className={style.sidenav}>
@@ -16,7 +17,11 @@ const SideNav = ({ saved, search, password, username, log_out }) => {
       </Link>
       <ul>
         <li>
-          <Link to={"/"} id="home">
+          <Link
+            to={"/"}
+            id="home"
+            className={pathname == "/" ? style.active : ""}
+          >
             <svg
               width="28"
               height="28"
@@ -33,7 +38,10 @@ const SideNav = ({ saved, search, password, username, log_out }) => {
           </Link>
         </li>
         <li>
-          <Link to={"/createpost"}>
+          <Link
+            to={"/createpost"}
+            className={pathname == "/createpost" ? style.active : ""}
+          >
             <svg
               width="27"
               height="28"
@@ -51,7 +59,10 @@ const SideNav = ({ saved, search, password, username, log_out }) => {
         </li>
         {saved && (
           <li>
-            <Link to={"/saved"}>
+            <Link
+              to={"/saved"}
+              className={pathname == "/saved" ? style.active : ""}
+            >
               <svg
                 width="27"
                 height="27"
@@ -70,7 +81,10 @@ const SideNav = ({ saved, search, password, username, log_out }) => {
         )}
         {search && (
           <li>
-            <Link to={"/search"}>
+            <Link
+              to={"/search"}
+              className={pathname == "/search" ? style.active : ""}
+            >
               <svg
                 width="27"
                 height="28"
@@ -89,7 +103,10 @@ const SideNav = ({ saved, search, password, username, log_out }) => {
         )}
         {password && (
           <li>
-            <Link to={"/changepassword"}>
+            <Link
+              to={"/changepassword"}
+              className={pathname == "/changepassword" ? style.active : ""}
+            >
               <svg
                 width="24"
                 height="24"
@@ -112,7 +129,10 @@ const SideNav = ({ saved, search, password, username, log_out }) => {
         )}
         {username && (
           <li>
-            <Link to={"/changeusername"}>
+            <Link
+              to={"/changeusername"}
+              className={pathname == "/changeusername" ? style.active : ""}
+            >
               <svg
                 width="27"
                 height="30"
@@ -131,7 +151,10 @@ const SideNav = ({ saved, search, password, username, log_out }) => {
         )}
         {log_out && (
           <li>
-            <Link to={"/logout"}>
+            <Link
+              to={"/logout"}
+              className={pathname == "/logout" ? style.active : ""}
+            >
               <svg
                 width="25"
                 height="31"
