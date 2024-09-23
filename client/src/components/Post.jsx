@@ -11,7 +11,7 @@ const Post = ({ post, ref_ }) => {
   const [noImage, setNoImage] = useState(false);
   const [user, setUser] = useState();
 
-  const [imageLoading, setImageLoading] = useState(true);
+  const [imageLoading, setImageLoading] = useState(false);
   const calculateWidth = () => {
     if (window.innerWidth <= 460) {
       return (Window.innerWidth * 80) / 100 - 20;
@@ -131,7 +131,7 @@ const Post = ({ post, ref_ }) => {
           {imageLoading && (
             <div className={style.blured}>
               <Blurhash
-                hash={post.bluredHash}
+                hash={post?.bluredHash}
                 className={style.post_img}
                 height={calculateWidth()}
                 width={calculateWidth()}
