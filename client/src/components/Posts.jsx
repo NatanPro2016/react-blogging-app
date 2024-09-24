@@ -10,7 +10,10 @@ import Search from "./Search";
 const Posts = () => {
   const [query, setQuery] = useState("");
   const [pageNumber, setPageNmber] = useState(0);
-  const { loading, error, posts, hasMore } = usePostSearch(query, pageNumber);
+  const { loading, error, posts, hasMore, refresh } = usePostSearch(
+    query,
+    pageNumber
+  );
 
   const observer = useRef();
   const lastPost = useCallback(
@@ -33,7 +36,7 @@ const Posts = () => {
   return (
     <div className={style.posts}>
       <Search query={query} setQuery={setQuery} />
-      <Categories />
+
       {posts.map((post, index) => {
         if (posts.length === index + 1) {
           return <Post post={post} key={post._id} ref_={lastPost} />;
@@ -51,8 +54,7 @@ const Posts = () => {
         </div>
       )}
       {error && (
-        <div className={style.error}>
-          {" "}
+        <div className={style.error} onClick={() => refresh()}>
           <svg
             width="50"
             height="50"

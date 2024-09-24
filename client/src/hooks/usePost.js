@@ -3,7 +3,7 @@ import axios from "axios";
 
 const usePost = (user, pageNumber) => {
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [hasMore, setHasMore] = useState(false);
 

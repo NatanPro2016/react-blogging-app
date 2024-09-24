@@ -24,6 +24,7 @@ const UserInfoLogout = () => {
           .delete("/api/auth/logout")
           .then(() => {
             setIsLogedIn(false);
+            localStorage.removeItem("USER");
             window.location = "/login";
           })
           .catch(() => {

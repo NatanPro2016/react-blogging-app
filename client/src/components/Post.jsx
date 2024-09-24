@@ -128,10 +128,10 @@ const Post = ({ post, ref_ }) => {
             onLoad={() => setImageLoading(false)}
           />
 
-          {imageLoading && (
+          {post && imageLoading && (
             <div className={style.blured}>
               <Blurhash
-                hash={post?.bluredHash}
+                hash={post.bluredHash}
                 className={style.post_img}
                 height={calculateWidth()}
                 width={calculateWidth()}

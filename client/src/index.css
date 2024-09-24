@@ -64,6 +64,23 @@ svg rect {
 ::-webkit-scrollbar {
   display: none;
 }
+.error-page {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 40px;
+  gap: 40px;
+}
+.error-page .btns {
+  display: flex;
+  gap: 40px;
+}
+.error-page .btns button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
 
 .notification {
   position: absolute;
@@ -135,4 +152,3 @@ section {
     font-family: kanit-light;
   }
 }
-                                            

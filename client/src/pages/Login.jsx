@@ -32,6 +32,7 @@ const Login = () => {
       .then(() => {
         setIsLogedIn(true);
         setIsLoading(false);
+       
       })
       .catch((e) => {
         setError(e.response.data);

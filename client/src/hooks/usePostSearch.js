@@ -6,6 +6,34 @@ const usePostSearch = (query, pageNumber) => {
   const [error, setError] = useState(false);
   const [posts, setPosts] = useState([]);
   const [hasMore, setHasMore] = useState(false);
+  const refresh = () => {
+    setLoading(true);
+    setError(false);
+    let cancel;
+    axios({
+      method: "GET",
+      url: "/api/posts",
+      params: {
+        page: pageNumber,
+        category: query,
+      },
+      cancelToken: new axios.CancelToken((c) => (cancel = c)),
+    })
+      .then((res) => {
+        setPosts((pvPosts) => {
+          return [...new Set([...pvPosts, ...res.data])];
+        });
+
+        setHasMore(res.data.length > 0);
+        setLoading(false);
+      })
+      .catch((e) => {
+        if (axios.isCancel(e)) return;
+        console.log(e);
+        setLoading(false);
+        setError(true);
+      });
+  };
 
   useEffect(() => {
     setPosts([]);
@@ -42,7 +70,7 @@ const usePostSearch = (query, pageNumber) => {
     return () => cancel();
   }, [query, pageNumber]);
 
-  return { error, hasMore, loading, posts, setPosts };
+  return { error, hasMore, loading, posts, setPosts, refresh };
 };
 
 export default usePostSearch;

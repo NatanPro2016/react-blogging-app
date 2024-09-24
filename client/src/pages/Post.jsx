@@ -55,12 +55,17 @@ const Post = () => {
         setLoading(false);
         console.log(e);
       });
-    user.saved.map((saved) => {
-      if (saved == id) {
-        setIsSeved(true);
-      }
-    });
   }, [id]);
+
+  useEffect(() => {
+    if (user) {
+      user.saved.map((saved) => {
+        if (saved == id) {
+          setIsSeved(true);
+        }
+      });
+    }
+  }, [user]);
   const handleSave = () => {
     axios
       .post("/api/posts/save", { id: inputRef.current.value })
@@ -182,7 +187,7 @@ const Post = () => {
               onLoad={() => setImageLoading(false)}
             />
 
-            {imageLoading && post.bluredHash && (
+            {!loading && imageLoading && post.bluredHash && (
               <div className={style.blured}>
                 <Blurhash
                   hash={post.bluredHash}
@@ -196,11 +201,7 @@ const Post = () => {
               </div>
             )}
             {noImage && !imageLoading && (
-              <div
-                className={style.noimage}
-                role="button"
-              
-              >
+              <div className={style.noimage} role="button">
                 <svg
                   width="50"
                   height="50"
